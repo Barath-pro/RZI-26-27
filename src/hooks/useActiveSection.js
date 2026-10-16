@@ -1,0 +1,35 @@
+import { useState, useEffect } from 'react';
+
+/**
+ * Custom hook to monitor current section in view for active navigation highlighting
+ * @param {string[]} sectionIds - Array of DOM IDs to observe
+ * @param {number} offset - Threshold offset for triggering section
+ */
+export function useActiveSection(sectionIds, offset = 120) {
+  const [activeSection, setActiveSection] = useState(sectionIds[0] || 'home');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + offset;
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const element = document.getElementById(id);
+        if (element) {
+          const top = element.offsetTop;
+          if (scrollPosition >= top) {
+            setActiveSection(id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sectionIds, offset]);
+
+  return activeSection;
+}

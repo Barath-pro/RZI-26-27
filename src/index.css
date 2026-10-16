@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #F8F9FC;
+    color: #031427;
+  }
+
+  /* Focus visible state for accessibility */
+  :focus-visible {
+    outline: 2px solid #F59E0B;
+    outline-offset: 3px;
+  }
+}
+
+/* Custom scrollbar with primary brand color #06447b */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #031427;
+}
+::-webkit-scrollbar-thumb {
+  background: #06447b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F59E0B;
+}
+
+/* Subtle background noise texture utility */
+.bg-grid-pattern {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(6, 68, 123, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6, 68, 123, 0.05) 1px, transparent 1px);
+}
+
+.bg-grid-pattern-dark {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FFF0CF 0%, #F59E0B 50%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.blue-gradient-text {
+  background: linear-gradient(135deg, #031427 0%, #06447b 65%, #1e7ecb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Wordmark style from rotaractinstitute.com */
+.wordmark {
+  background: linear-gradient(180deg, #FEF3C7 0%, #F59E0B 55%, #EA580C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 6px 60px rgba(245, 158, 11, 0.22);
+}
+
+/* Ember particles */
+@keyframes ember-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.5);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.95;
+  }
+  88% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(35px, -110vh, 0) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.ember {
+  position: absolute;
+  bottom: -5vh;
+  border-radius: 9999px;
+  animation: ember-rise linear infinite;
+  filter: blur(0.5px);
+  pointer-events: none;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ember {
+    display: none !important;
+  }
+}
